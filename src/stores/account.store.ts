@@ -39,7 +39,6 @@ export const useAccountStore = defineStore('accounts', () => {
 
     const parseLabels = (labelString: string): AccountLabel[] => {
         if (!labelString.trim()) return [];
-
         return labelString
             .split(';')
             .map(label => label.trim())
@@ -55,17 +54,19 @@ export const useAccountStore = defineStore('accounts', () => {
             errors.label = 'Метка не должна превышать 50 символов';
             isValid = false;
         }
-
-        if (!accountData.login?.trim()) {
+        if (typeof accountData.login !== 'string' || accountData.login.trim() === '') {
             errors.login = 'Логин обязателен для заполнения';
             isValid = false;
         } else if (accountData.login.length > 100) {
             errors.login = 'Логин не должен превышать 100 символов';
             isValid = false;
         }
-
         if (accountData.type === 'LOCAL') {
-            if (!accountData.password?.trim()) {
+            if (
+                accountData.password == null ||
+                typeof accountData.password !== 'string' ||
+                accountData.password.trim() === ''
+            ) {
                 errors.password = 'Пароль обязателен для локальной учетной записи';
                 isValid = false;
             } else if (accountData.password.length > 100) {
@@ -73,7 +74,6 @@ export const useAccountStore = defineStore('accounts', () => {
                 isValid = false;
             }
         }
-
         return { isValid, errors };
     };
 
@@ -146,13 +146,15 @@ export const useAccountStore = defineStore('accounts', () => {
         if (updates.label !== undefined) {
             accountUpdates.labels = parseLabels(updates.label);
         }
-        if (updates.type === 'LDAP') {
-            accountUpdates.password = null;
-        }
         const prev = accounts.value[accountIndex];
         if (!prev) {
             lastError.value = 'Учетная запись не найдена';
             return false;
+        }
+        if (updates.type && prev.type !== updates.type) {
+            if (updates.type === 'LDAP') {
+                accountUpdates.password = null;
+            }
         }
         accounts.value[accountIndex] = {
             id: prev.id,

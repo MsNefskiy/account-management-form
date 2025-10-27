@@ -1,1 +1,106 @@
 @import 'tailwindcss';
+
+.p-component {
+  font-family: theme('fontFamily.sans');
+}
+
+@layer components {
+  .btn-primary {
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 500;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s;
+    box-shadow:
+      0 1px 3px 0 rgba(0, 0, 0, 0.1),
+      0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+  .btn-primary:hover {
+    background: var(--primary-color-dark, #7c3aed);
+  }
+  .btn-danger {
+    background: var(--danger-color, #f87171);
+    color: #fff;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-danger:hover {
+    background: var(--danger-color-dark, #ef4444);
+  }
+  .input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    transition: all 0.2s;
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+  }
+  .input-error {
+    border-color: #ef4444;
+  }
+  .select-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    transition: all 0.2s;
+    background: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
+  }
+  .form-field {
+    margin-bottom: 1.5rem;
+  }
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+  }
+  .error-text {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: block;
+  }
+}
+@layer utilities {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db #f3f4f6;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 3px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+}
+@layer base {
+  html {
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+  }
+  body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

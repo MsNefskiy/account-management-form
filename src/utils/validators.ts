@@ -15,7 +15,7 @@ export const validateLabelsFormat = (labels: string): boolean => {
 };
 
 export const validateLogin = (login: string): string | null => {
-    if (!validateRequired(login)) {
+    if (typeof login !== 'string' || login.trim() === '') {
         return 'Логин обязателен для заполнения';
     }
     if (!validateMaxLength(login, 100)) {
